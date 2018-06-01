@@ -1,0 +1,22 @@
+
+output {
+  {{ item.type }} {
+    id => "{{ item.name }}"
+  {%- set elasticsearch_hosts = item.get('urls', 'localhost:9200') %}
+    hosts => "{{ elasticsearch_hosts }}"
+  {%- if item.index is defined %}
+    index => "{{ item.index }}"
+  {%- endif %}
+  {%- for output_key, key_value in item.get('extra', {}).iteritems() %}
+    {%- if key_value is mapping %}
+    {{ output_key }} => {
+      {%- for map_output_key, map_key_value in key_value.iteritems() %}
+                          "{{ map_output_key }}" => "{{ map_key_value }}"
+      {%- endfor %}
+                        }
+    {%- elif key_value is string  %}
+    {{ output_key }} => "{{ key_value }}"
+    {%- endif %}
+  {%- endfor %}
+  }
+}

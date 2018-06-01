@@ -1,0 +1,5 @@
+output {
+    {{ item.type }} {
+        {{ item.config | indent(8) }}
+    }
+}

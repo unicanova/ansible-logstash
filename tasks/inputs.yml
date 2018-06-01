@@ -1,0 +1,15 @@
+---
+
+- name: "create pipeline directory {{ logstash_config_dir }}/{{ item.pipeline_name|default('conf.d') }}"
+  file:
+    path: "{{ logstash_config_dir }}/{{ item.pipeline_name|default('conf.d') }}"
+    state: directory
+    owner: "{{ logstash_config_owner | default('root') }}"
+    group: "{{ logstash_config_owner | default('root') }}"
+    mode: 0700
+    recurse: yes
+
+- name: "configure input {{ item.name }}"
+  template:
+    src: files/input-custom.jinja2
+    dest: "{{ logstash_config_dir }}/{{ item.pipeline_name|default('conf.d') }}/{{ item.name }}-input.yml"

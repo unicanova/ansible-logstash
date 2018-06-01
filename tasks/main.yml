@@ -1,0 +1,13 @@
+---
+# tasks file for logstash
+#- include: server-{{ ansible_os_family }}.yml
+
+- include: pipelines.yml
+
+- include: inputs.yml
+  with_items: "{{ logstash_inputs }}"
+  when: logstash_inputs is defined
+
+- include: output.yml
+  with_items: "{{ logstash_outputs }}"
+  when: logstash_outputs is defined

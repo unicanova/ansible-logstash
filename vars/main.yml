@@ -1,0 +1,16 @@
+---
+# vars file for logstash
+
+logstash_inputs:
+  - name: gelf
+    pipeline_name: conf.d
+    type: gelf
+    config: |
+      host => "localhost"
+      
+logstash_outputs:
+  - name: elasticsearch
+    type: elasticsearch
+    pipeline_name: conf.d
+    config: |
+      hosts => ["https://localhost:9200"]

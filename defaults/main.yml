@@ -1,0 +1,3 @@
+---
+# defaults file for logstash
+logstash_config_dir: /etc/logstash

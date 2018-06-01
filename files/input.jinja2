@@ -1,0 +1,11 @@
+input {
+  {{ item.type }} {
+    id => "{{ item.name }}"
+  {% if item.port is defined %}
+    port => "{{ item.port }}"
+  {% endif %}
+  {% set logstash_host = item.get('host', 'localhost') %}
+    host => "{{ logstash_host }}"
+  {% endif %}
+  }
+}
