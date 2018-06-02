@@ -1,10 +1,9 @@
 ---
 
-- name: "configure input {{ item.name }}"
+- name: "configure pipelines"
   template:
     src: files/pipelines.jinja2
     dest: "{{ logstash_config_dir }}/pipelines.yml"
-    owner: "{{ logstash_config_owner | default('root') }}"
-    group: "{{ logstash_config_owner | default('root') }}"
-    mode: 0700
-    recurse: yes
+    owner: "{{ logstash_config_owner | default('logstash') }}"
+    group: "{{ logstash_config_owner | default('logstash') }}"
+    mode: 0640

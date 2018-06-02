@@ -4,12 +4,15 @@
   file:
     path: "{{ logstash_config_dir }}/{{ item.pipeline_name|default('conf.d') }}"
     state: directory
-    owner: "{{ logstash_config_owner | default('root') }}"
-    group: "{{ logstash_config_owner | default('root') }}"
-    mode: 0700
-    recurse: yes
+    owner: "{{ logstash_config_owner | default('logstash') }}"
+    group: "{{ logstash_config_owner | default('logstash') }}"
+    mode: 0750
 
-- name: "configure input {{ item.name }}"
+- name: "configure output {{ item.name }}"
   template:
     src: files/output-custom.jinja2
-    dest: "{{ logstash_config_dir }}/{{ item.pipeline_name|default('conf.d') }}/{{ item.name }}-output.yml"
+    dest: "{{ logstash_config_dir }}/{{ item.pipeline_name|default('conf.d') }}/{{ item.name }}-output.conf"
+    owner: "{{ logstash_config_owner | default('logstash') }}"
+    group: "{{ logstash_config_owner | default('logstash') }}"
+    mode: 0640
+  notify: restart logstash
