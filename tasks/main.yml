@@ -1,6 +1,6 @@
 ---
 # tasks file for logstash
-#- include: server-{{ ansible_os_family }}.yml
+- include: "server-{{ ansible_os_family }}.yml"
 
 - include: pipelines.yml
 
